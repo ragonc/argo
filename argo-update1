@@ -1,0 +1,35 @@
+Prompt — Argo: VPS check-up and efficiency update
+
+Argo already exists: my personal executive-function agent, a local Claude Code project (~/argo) with a Telegram bridge, Todoist as the single source of truth for tasks, subagents for research/analysis/code/sweeps, and skills for capture, daily brief, weekly review and project resume. I have since moved it onto a small Linux VPS so it runs without my laptop. The idea of Argo does not change in this session. Two things do:
+
+Verify the VPS setup is actually correct — that Argo really is always-on, survives a reboot, keeps its secrets safe, and only answers to me.
+Make Argo more efficient — faster to answer, cheaper to run, less noise, fewer wasted steps, without adding features I did not ask for.
+
+I don't read code. Talk to me in plain English, in simple words, and explain choices by their practical effect, not their technical detail. Write code that someone who did not write it can read: explicit names, short files (roughly under 200 lines), a header at the top of each file explaining in one paragraph what it does and how it fits with the rest, comments only where they defend a non-obvious choice.
+
+Phase 1 — before a single line of code: questions
+
+This prompt gives the frame, not the decisions. Your first job is to interview me to close the grey areas, and only then to touch anything.
+
+Ask every useful question: there is no ceiling. The criterion is not quantity, it is impact — keep going while a doubt remains that would change the structure, a visible behaviour, or a file; then stop.
+One question at a time, never in a block. Wait for the answer before the next one.
+Every question is multiple choice (2–5 mutually exclusive options) or a short one-sentence answer.
+Put the answer you recommend first, with one line of reasoning: that way I can reply "ok" and move on.
+Plain English. If you need a technical term, explain it on the spot.
+Start from an inspection of the VPS and of the existing project — what is installed, what is running, what is missing, versions, where things live, what the current config actually says. Do not ask me anything you can check yourself, and bring me what you found in a table.
+Areas to cover for certain:
+Always-on: how Argo is started today, whether it comes back by itself after a crash or a reboot, and what I should see if it does not.
+Access: who can talk to the bot, and what stops a stranger who finds it from using it.
+Secrets: where the API keys and tokens live and who can read them.
+Permissions: what Argo may touch on that machine without asking, what it must ask for, and what it must never do.
+Scheduled work: which jobs run on a schedule, in which timezone, and where they are running now (VPS or cloud) — including the weekday morning brief and the Sunday review.
+Logs and failures: where I look when something breaks, how long logs are kept, and how I find out that something broke without having to check.
+Data: what is stored on the VPS, what would be lost if the machine disappeared tomorrow, and what is worth backing up.
+Efficiency: what makes Argo slow or expensive today — how much conversation history it carries, which model it uses for which kind of job, how often it queries Todoist, and when it should spin up a subagent instead of doing the work itself.
+Chat behaviour: how long I am willing to wait for an answer, what I expect to see while it is thinking, and what I expect to see when something goes wrong.
+Cost: what the running cost looks like now and which number I want kept under control.
+What I want left alone: which parts of Argo work well enough that changing them is not worth the risk.
+
+After every answer, write it straight away into the project's decisions file (a dated log, plus a section ordered by topic): no decision we take together may live only in the chat, because the session that touches this code in a month will not have our conversation. If an answer overturns an earlier decision, update that entry and note the change.
+
+Once the questions are closed, propose a short plan in plain language — what you check, what you fix, in what order, what I will see working first — and wait for my ok. Then work in batches, showing me something I can test early. Prefer the smallest change that gets the result: this is a check-up and a tune-up, not a rewrite.
